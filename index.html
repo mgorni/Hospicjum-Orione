@@ -1,13 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
 <head>
-<meta charset="utf-8">
-<title>Hospicjum</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hospicjum domowe – Apostolstwo Miłosierdzia</title>
+  <link rel="stylesheet" href="/assets/css/style.css" />
 </head>
-
 <body>
-<h1>Apostolstwo Miłosierdzia</h1>
-<p>Strona testowa Cloudflare Pages</p>
-</body>
 
+  <header class="site-header">
+    <div class="hero">
+      <img src="/assets/img/header.png" alt="Hospicjum domowe – św. Alojzy Orione" />
+    </div>
+
+    <nav class="topnav" aria-label="Główne menu">
+      <a href="#home"        data-page="home" class="navlink">Strona główna</a>
+      <a href="#o-nas"       data-page="o-nas" class="navlink">O nas</a>
+      <a href="#jak-pomagac" data-page="jak-pomagac" class="navlink">Jak pomagać?</a>
+      <a href="#o-patronie"  data-page="o-patronie" class="navlink">O patronie</a>
+    </nav>
+  </header>
+
+  <main id="content" class="content" aria-live="polite">
+    <div class="loading">Ładowanie…</div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-box">
+        <h3>Kontakt</h3>
+        <p>
+          <img class="icon" src="/assets/img/icon-lokalizacja.png" alt="" />
+          <!-- wstaw adres -->
+          ul. …, …<br>
+          00-000 …
+        </p>
+        <p>
+          <img class="icon" src="/assets/img/icon-telefon.png" alt="" />
+          <!-- wstaw tel -->
+          +48 …
+        </p>
+        <p>
+          <img class="icon" src="/assets/img/icon-mail.png" alt="" />
+          <!-- wstaw email -->
+          …@…
+        </p>
+      </div>
+
+      <div class="footer-box">
+        <h3>Wpłaty / Darowizny</h3>
+        <p>
+          <img class="icon" src="/assets/img/icon-monety.png" alt="" />
+          <!-- wstaw nr konta -->
+          Nr konta: …
+        </p>
+        <p>
+          <img class="icon" src="/assets/img/icon-krs.png" alt="" />
+          KRS: …
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-small">
+      © <span id="year"></span> Apostolstwo Miłosierdzia
+    </div>
+  </footer>
+
+  <script src="/assets/js/app.js"></script>
+</body>
 </html>
