@@ -1,6 +1,6 @@
 :root { 
   color-scheme: light;
-  --page-bg: #fff;
+  --page-bg: #fff; /* kolor strony i kolor do wygaszenia */
 }
 
 * { box-sizing: border-box; }
@@ -14,9 +14,39 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
-/* Sticky zostaje, ale NIE malujemy całego headera na czarno */
+/* TŁO pod całą stroną (obraz + wygaszenie) */
+.page-bg{
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+
+  /* Obraz w tle */
+  background-image: url("/assets/img/header.png");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+
+  /* To sprawia, że po „zjechaniu” w dół obraz nie znika nagle */
+  background-attachment: fixed;
+}
+
+/* Wygaszenie tła do bieli w dolnej części ekranu */
+.page-bg::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0) 40%,
+    rgba(255,255,255,0.85) 70%,
+    var(--page-bg) 100%
+  );
+}
+
 .site-header {
   position: sticky;
   top: 0;
@@ -24,30 +54,7 @@ body {
   color: #fff;
 }
 
-/* HERO jako tło + wygaszenie */
-.hero {
-  position: relative;
-  width: 100%;
-  height: clamp(220px, 32vw, 420px);
-  background-image: url("/assets/img/header.png");
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    to bottom,
-    rgba(255,255,255,0) 55%,
-    var(--page-bg) 100%
-  );
-}
-
-/* Pasek nav ma czarne tło (a nie cały header) */
+/* Pasek nav */
 .topnav-bar {
   background: #111;
   color: #fff;
@@ -76,10 +83,6 @@ body {
   width: 100%;
   max-width: 980px;
   margin: 0 auto;
-
-  /* nachodzenie na wygaszenie (opcjonalne) */
-  margin-top: -36px;
-
   padding: 18px 14px 30px;
   flex: 1;
   transition: opacity 160ms ease;
@@ -88,13 +91,13 @@ body {
 .content.fade-out { opacity: 0.15; }
 .content.fade-in  { opacity: 1; }
 
+/* Karta treści na tle obrazka */
 .card {
-  background: #fff;
-  border: 1px solid #e5e5e5;
+  background: rgba(255,255,255,0.92); /* lekka transparencja, żeby tło „żyło” */
+  border: 1px solid rgba(229,229,229,0.9);
   border-radius: 14px;
   padding: 16px;
-  position: relative;
-  z-index: 1;
+  backdrop-filter: blur(2px);
 }
 
 .loading { opacity: .7; }
