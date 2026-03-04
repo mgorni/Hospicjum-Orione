@@ -1,6 +1,6 @@
 :root { 
   color-scheme: light;
-  --page-bg: #fff; /* kolor, do którego ma wygasać tło */
+  --page-bg: #fff;
 }
 
 * { box-sizing: border-box; }
@@ -16,15 +16,15 @@ body {
   flex-direction: column;
 }
 
+/* Sticky zostaje, ale NIE malujemy całego headera na czarno */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: #111;
   color: #fff;
 }
 
-/* --- ZMIANA: hero jako tło + gradient wygaszający --- */
+/* HERO jako tło + wygaszenie */
 .hero {
   position: relative;
   width: 100%;
@@ -35,7 +35,6 @@ body {
   background-repeat: no-repeat;
 }
 
-/* Wygaszenie do koloru tła strony */
 .hero::after {
   content: "";
   position: absolute;
@@ -47,7 +46,12 @@ body {
     var(--page-bg) 100%
   );
 }
-/* --- KONIEC zmiany hero --- */
+
+/* Pasek nav ma czarne tło (a nie cały header) */
+.topnav-bar {
+  background: #111;
+  color: #fff;
+}
 
 .topnav {
   display: flex;
@@ -73,9 +77,8 @@ body {
   max-width: 980px;
   margin: 0 auto;
 
-  /* --- opcjonalny efekt: treść lekko „wchodzi” w wygaszenie --- */
+  /* nachodzenie na wygaszenie (opcjonalne) */
   margin-top: -36px;
-  /* ----------------------------------------------------------- */
 
   padding: 18px 14px 30px;
   flex: 1;
@@ -90,8 +93,6 @@ body {
   border: 1px solid #e5e5e5;
   border-radius: 14px;
   padding: 16px;
-
-  /* żeby karta była zawsze „nad” tłem hero */
   position: relative;
   z-index: 1;
 }
