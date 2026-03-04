@@ -1,11 +1,15 @@
-:root { color-scheme: light; }
+:root { 
+  color-scheme: light;
+  --page-bg: #fff; /* kolor, do którego ma wygasać tło */
+}
 
 * { box-sizing: border-box; }
+
 body {
   margin: 0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   line-height: 1.45;
-  background: #fff;
+  background: var(--page-bg);
   color: #111;
   min-height: 100vh;
   display: flex;
@@ -20,11 +24,30 @@ body {
   color: #fff;
 }
 
-.hero img {
+/* --- ZMIANA: hero jako tło + gradient wygaszający --- */
+.hero {
+  position: relative;
   width: 100%;
-  height: auto;
-  display: block;
+  height: clamp(220px, 32vw, 420px);
+  background-image: url("/assets/img/header.png");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
 }
+
+/* Wygaszenie do koloru tła strony */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0) 55%,
+    var(--page-bg) 100%
+  );
+}
+/* --- KONIEC zmiany hero --- */
 
 .topnav {
   display: flex;
@@ -49,6 +72,11 @@ body {
   width: 100%;
   max-width: 980px;
   margin: 0 auto;
+
+  /* --- opcjonalny efekt: treść lekko „wchodzi” w wygaszenie --- */
+  margin-top: -36px;
+  /* ----------------------------------------------------------- */
+
   padding: 18px 14px 30px;
   flex: 1;
   transition: opacity 160ms ease;
@@ -62,6 +90,10 @@ body {
   border: 1px solid #e5e5e5;
   border-radius: 14px;
   padding: 16px;
+
+  /* żeby karta była zawsze „nad” tłem hero */
+  position: relative;
+  z-index: 1;
 }
 
 .loading { opacity: .7; }
