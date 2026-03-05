@@ -1,6 +1,6 @@
 :root { 
   color-scheme: light;
-  --page-bg: #fff; /* kolor strony i kolor do wygaszenia */
+  --page-bg: #fff;
 }
 
 * { box-sizing: border-box; }
@@ -17,23 +17,23 @@ body {
   position: relative;
 }
 
-/* TŁO pod całą stroną (obraz + wygaszenie) */
+
 .page-bg{
   position: fixed;
   inset: 0;
   z-index: -1;
 
-  /* Obraz w tle */
+
   background-image: url("/assets/img/header.png");
   background-size: cover;
-  background-position: center top;
+  background-position: right top;
   background-repeat: no-repeat;
 
-  /* To sprawia, że po „zjechaniu” w dół obraz nie znika nagle */
+
   background-attachment: fixed;
 }
 
-/* Wygaszenie tła do bieli w dolnej części ekranu */
+
 .page-bg::after{
   content: "";
   position: absolute;
@@ -54,7 +54,7 @@ body {
   color: #fff;
 }
 
-/* Pasek nav */
+
 .topnav-bar {
   background: #111;
   color: #fff;
@@ -91,9 +91,9 @@ body {
 .content.fade-out { opacity: 0.15; }
 .content.fade-in  { opacity: 1; }
 
-/* Karta treści na tle obrazka */
+
 .card {
-  background: rgba(255,255,255,0.92); /* lekka transparencja, żeby tło „żyło” */
+  background: rgba(255,255,255,0.92);
   border: 1px solid rgba(229,229,229,0.9);
   border-radius: 14px;
   padding: 16px;
