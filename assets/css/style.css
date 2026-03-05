@@ -52,6 +52,7 @@ body {
   top: 0;
   z-index: 10;
   color: #fff;
+  opacity: .40;
 }
 
 
@@ -134,7 +135,7 @@ body {
 .footer-small {
   max-width: 980px;
   margin: 10px auto 0;
-  opacity: .75;
+  opacity: .40;
   font-size: 13px;
   border-top: 1px solid rgba(255,255,255,.15);
   padding-top: 10px;
