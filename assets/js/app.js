@@ -1,3 +1,8 @@
+export default {
+  async fetch(request, env) {
+    return new Response("Worker działa");
+  }
+
 (() => {
   const contentEl = document.getElementById("content");
   const navLinks = Array.from(document.querySelectorAll(".navlink"));
