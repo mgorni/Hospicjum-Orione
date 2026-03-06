@@ -12,6 +12,7 @@ export default {
     "o-nas": "partials/o-nas.html",
     "jak-pomagac": "partials/jak-pomagac.html",
     "o-patronie": "partials/o-patronie.html",
+    "kontakt": "partials/kontakt.html",
     "wplaty": "partials/wplaty.html",
   };
 
