@@ -1,10 +1,35 @@
 <section class="card">
-<form action="https://api.web3forms.com/submit" method="POST">
-  Wyślij nam wiadomość:</br>
-  <input type="hidden" name="access_key" value="42be3b7b-2237-4557-9486-02098f39e300">
-  Imię i nazwisko: <input type="text" name="name" required></br>
-  Adres e-mail: <input type="email" name="email" required></br>
-  Treść wiadomości:</br><textarea name="message" required></textarea></br>
-  <button type="submit">Wyślij</button></br>
-</form>
+  <h3>Kontakt</h3>
+
+  <p>Wyślij nam wiadomość:</p>
+
+  <form action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value="42be3b7b-2237-4557-9486-02098f39e300">
+
+    <p>
+      <label for="name">Imię i nazwisko:</label><br>
+      <input type="text" id="name" name="name" required>
+    </p>
+
+    <p>
+      <label for="email">Adres e-mail:</label><br>
+      <input type="email" id="email" name="email" required>
+    </p>
+
+    <p>
+      <label for="message">Treść wiadomości:</label><br>
+      <textarea id="message" name="message" rows="5" required></textarea>
+    </p>
+
+    <p>
+      <button type="submit">Wyślij wiadomość</button>
+    </p>
+  </form>
+
+  <hr>
+
+  <p>
+    <strong>Zadzwoń do nas:</strong><br>
+    <a href="tel:+48228976833">+48 22 897 68 33</a>
+  </p>
 </section>
