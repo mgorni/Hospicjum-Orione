@@ -167,5 +167,5 @@
     }
   }
 
-  loadNews();
+  document.addEventListener("DOMContentLoaded", loadNews);
 </script>
