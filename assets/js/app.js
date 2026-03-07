@@ -5,6 +5,7 @@
   const routes = {
     "home": "partials/home.html",
     "o-nas": "partials/o-nas.html",
+    "aktualnosci": "partials/aktualnosci.html",
     "jak-pomagac": "partials/jak-pomagac.html",
     "o-patronie": "partials/o-patronie.html",
     "kontakt": "partials/kontakt.html",
