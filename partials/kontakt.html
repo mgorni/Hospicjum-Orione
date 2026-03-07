@@ -1,38 +1,9 @@
 <section class="card">
-<form id="contact">
-  <input name="name" placeholder="Imię" />
-  <input name="email" type="email" placeholder="E-mail" />
-  <textarea name="message" required placeholder="Wiadomość"></textarea>
-
-  <input name="website" style="display:none" tabindex="-1" autocomplete="off" />
-
-  <div class="cf-turnstile" data-sitekey="TWOJ_SITE_KEY"></div>
-  <button type="submit">Wyślij</button>
+<form action="https://api.web3forms.com/submit" method="POST">
+  <input type="hidden" name="access_key" value="42be3b7b-2237-4557-9486-02098f39e300">
+  <input type="text" name="name" required>
+  <input type="email" name="email" required>
+  <textarea name="message" required></textarea>
+  <button type="submit">Wyślij wiadomość</button>
 </form>
-
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-<script>
-  document.getElementById("contact").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const fd = new FormData(e.target);
-    const token = document.querySelector('input[name="cf-turnstile-response"]')?.value || "";
-
-    const payload = {
-      name: fd.get("name"),
-      email: fd.get("email"),
-      message: fd.get("message"),
-      website: fd.get("website"),
-      turnstileToken: token
-    };
-
-    const r = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    const out = await r.json().catch(() => ({ ok:false }));
-    alert(out.ok ? "Wysłano ✅" : "Nie udało się wysłać.");
-  });
-</script>
 </section>
