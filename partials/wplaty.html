@@ -1,26 +1,44 @@
-<section class="card">
-        <h3>Wpłaty / Darowizny</h3>
-        <p>
-          Wpłać przelewem 20 PLN
-          <img class="icon" src="/assets/img/QR-20PLN.png" alt="" />
-        </p>
-        <p>
-          Wpłać przelewem 50 PLN
-          <img class="icon" src="/assets/img/QR-50PLN.png" alt="" />
-        </p>
-        <p>
-          Wpłać przelewem 100 PLN
-          <img class="icon" src="/assets/img/QR-100PLN.png" alt="" />
-        </p>
-        <p>
-          <img class="icon" src="/assets/img/icon-monety.png" alt="" />
-          Nr konta: 42 1090 1030 0000 0001 1546 1359
-        </p>
-        <p>
-          <img class="icon" src="/assets/img/icon-krs.png" alt="" />
-          Przekaż 1,5% podatku - KRS: 0000332316
-        </p>
-        <p>
-          <a href="#wplaty"  data-page="wplaty" class="navlink">Wszystkie formy płatności</a>
-        </p>
+<section class="card donations">
+
+<h3>Wpłaty / Darowizny</h3>
+
+<p class="intro">
+Jeśli chcesz wspomóc finansowo nasze hospicjum, możesz to zrobić na kilka sposobów:
+</p>
+
+<ul class="donation-methods">
+
+<li>
+<strong>Dokonując przelewu bankowego:</strong><br>
+<span class="account">
+Nr konta: <b>42 1090 1030 0000 0001 1546 1359</b>
+</span>
+</li>
+
+<li>
+<strong>Dokonując szybkiego przelewu korzystając z kodu QR:</strong>
+
+<div class="qr-buttons">
+<button onclick="showQR('/assets/img/QR-20PLN.png')">20 PLN</button>
+<button onclick="showQR('/assets/img/QR-50PLN.png')">50 PLN</button>
+<button onclick="showQR('/assets/img/QR-100PLN.png')">100 PLN</button>
+</div>
+
+</li>
+
+<li>
+<strong>Przekazując 1,5% swojego podatku:</strong><br>
+KRS: <b>0000332316</b>
+</li>
+
+</ul>
+
 </section>
+
+
+<!-- overlay QR -->
+<div id="qr-overlay" onclick="hideQR()">
+<img id="qr-image" src="" alt="Kod QR do przelewu">
+</div>
+
+<script src="/assets/js/qr.js"></script>
