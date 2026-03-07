@@ -122,28 +122,38 @@ body {
   padding: 24px 16px;
 }
 
+.news-section h1 {
+  margin: 0 0 20px;
+}
+
 .news-item {
-  padding: 16px 0;
+  padding: 20px 0 28px;
   border-bottom: 1px solid #ddd;
 }
 
-.news-item h2 {
+.news-title {
   margin: 0 0 8px;
 }
 
 .news-date {
-  margin: 0 0 10px;
+  margin: 0 0 16px;
   color: #666;
   font-size: 0.95rem;
 }
 
-.news-summary {
-  font-weight: 600;
-  margin: 0 0 10px;
+.news-content p {
+  margin: 0 0 12px;
 }
 
-.news-content {
-  margin: 0 0 10px;
+.news-image-wrap {
+  margin-top: 16px;
+}
+
+.news-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
 }
 
 @media (min-width: 860px) {
