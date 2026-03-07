@@ -1,3 +1,4 @@
+alert "QR";
 function showQR(src) {
   const overlay = document.getElementById("qr-overlay");
   const img = document.getElementById("qr-image");
