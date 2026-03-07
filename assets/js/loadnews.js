@@ -1,7 +1,7 @@
 
 
   const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQpj_CYtCwZIaXHYU-WwHK0TM40gMnBXwrmr5PTK0mj9SQ4Edwa-oB_eS48BwxN4sRGf4FurP0dIrJI/pub?gid=0&single=true&output=csv";
-  alert(SHEET_CSV_URL);
+ 
   function escapeHtml(value) {
     return String(value ?? "")
       .replace(/&/g, "&amp;")
