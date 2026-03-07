@@ -156,6 +156,57 @@ body {
   border-radius: 8px;
 }
 
+
+.donations .intro{
+  margin-bottom:20px;
+}
+
+.donation-methods{
+  padding-left:18px;
+}
+
+.donation-methods li{
+  margin-bottom:18px;
+}
+
+.account{
+  font-size:1.1em;
+}
+
+.qr-buttons{
+  margin-top:10px;
+}
+
+.qr-buttons button{
+  margin-right:8px;
+  padding:6px 12px;
+  cursor:pointer;
+}
+
+
+/* overlay QR */
+
+#qr-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.8);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+#qr-overlay img{
+  max-width:90%;
+  max-height:90%;
+  background:white;
+  padding:10px;
+  border-radius:6px;
+}
+
+
+
+
 @media (min-width: 860px) {
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
