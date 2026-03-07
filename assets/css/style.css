@@ -118,6 +118,34 @@ body {
   gap: 16px;
 }
 
+.news-section {
+  padding: 24px 16px;
+}
+
+.news-item {
+  padding: 16px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.news-item h2 {
+  margin: 0 0 8px;
+}
+
+.news-date {
+  margin: 0 0 10px;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.news-summary {
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+
+.news-content {
+  margin: 0 0 10px;
+}
+
 @media (min-width: 860px) {
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
