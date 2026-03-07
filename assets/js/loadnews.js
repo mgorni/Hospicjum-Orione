@@ -1,6 +1,6 @@
 <script>
   const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQpj_CYtCwZIaXHYU-WwHK0TM40gMnBXwrmr5PTK0mj9SQ4Edwa-oB_eS48BwxN4sRGf4FurP0dIrJI/pub?gid=0&single=true&output=csv";
-
+  
   function escapeHtml(value) {
     return String(value ?? "")
       .replace(/&/g, "&amp;")
@@ -10,8 +10,11 @@
       .replace(/'/g, "&#039;");
   }
 
-  function nl2br(text) {
-    return escapeHtml(text).replace(/\n/g, "<br>");
+  function textToParagraphs(text) {
+    return escapeHtml(text)
+      .split(/\n\s*\n/)
+      .map(p => `<p>${p.replace(/\n/g, "<br>")}</p>`)
+      .join("");
   }
 
   function parseCsv(csvText) {
@@ -72,20 +75,28 @@
   function parseDate(dateStr) {
     if (!dateStr) return new Date(0);
 
-    // Obsługa YYYY-MM-DD
     const isoMatch = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})$/);
     if (isoMatch) {
       return new Date(`${isoMatch[1]}-${isoMatch[2]}-${isoMatch[3]}T00:00:00`);
     }
 
-    // Awaryjnie standardowy parser
+    const plMatch = dateStr.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
+    if (plMatch) {
+      const day = plMatch[1].padStart(2, "0");
+      const month = plMatch[2].padStart(2, "0");
+      const year = plMatch[3];
+      return new Date(`${year}-${month}-${day}T00:00:00`);
+    }
+
     const parsed = new Date(dateStr);
     return isNaN(parsed.getTime()) ? new Date(0) : parsed;
   }
 
   function formatDate(dateStr) {
     const d = parseDate(dateStr);
-    if (isNaN(d.getTime()) || d.getTime() === 0) return escapeHtml(dateStr || "");
+    if (isNaN(d.getTime()) || d.getTime() === 0) {
+      return escapeHtml(dateStr || "");
+    }
     return d.toLocaleDateString("pl-PL");
   }
 
@@ -103,19 +114,28 @@
     }
 
     container.innerHTML = items.map(item => {
-      const title = item.title || item.tytuł || "Bez tytułu";
-      const date = item.date || item.data || "";
-      const summary = item.summary || item.zajawka || "";
-      const content = item.content || item.treść || "";
-      const link = item.link || item.url || "";
+      const title = item["tytuł"] || "Bez tytułu";
+      const date = item["data"] || "";
+      const content = item["treść"] || "";
+      const image = item["zdjęcie"] || "";
 
       return `
         <article class="news-item">
-          <h2>${escapeHtml(title)}</h2>
+          <h2 class="news-title">${escapeHtml(title)}</h2>
           ${date ? `<p class="news-date">${formatDate(date)}</p>` : ""}
-          ${summary ? `<p class="news-summary">${escapeHtml(summary)}</p>` : ""}
-          ${content ? `<div class="news-content">${nl2br(content)}</div>` : ""}
-          ${link ? `<p><a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer">Czytaj więcej</a></p>` : ""}
+          <div class="news-content">
+            ${textToParagraphs(content)}
+          </div>
+          ${image ? `
+            <div class="news-image-wrap">
+              <img
+                class="news-image"
+                src="${escapeHtml(image)}"
+                alt="${escapeHtml(title)}"
+                loading="lazy"
+              >
+            </div>
+          ` : ""}
         </article>
       `;
     }).join("");
@@ -130,11 +150,15 @@
         throw new Error(`HTTP ${response.status}`);
       }
 
-      const csvText = await response.text();
+      let csvText = await response.text();
+
+      // Usunięcie BOM, jeśli kiedyś się pojawi
+      csvText = csvText.replace(/^\uFEFF/, "");
+
       const rows = parseCsv(csvText);
       const items = rowsToObjects(rows)
-        .filter(item => isPublished(item.published || item.opublikowany))
-        .sort((a, b) => parseDate(b.date || b.data) - parseDate(a.date || a.data));
+        .filter(item => isPublished(item["publikacja?"]))
+        .sort((a, b) => parseDate(b["data"]) - parseDate(a["data"]));
 
       renderNews(items);
     } catch (error) {
