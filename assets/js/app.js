@@ -35,6 +35,10 @@
       const html = await res.text();
       contentEl.innerHTML = html;
 
+      if (document.getElementById("news-list") && typeof loadNews === "function") {
+        loadNews();
+      }
+
       // fade-in
       contentEl.classList.remove("fade-out");
       contentEl.classList.add("fade-in");
