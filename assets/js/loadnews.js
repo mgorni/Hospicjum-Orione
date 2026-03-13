@@ -144,7 +144,8 @@
 
   async function loadNews() {
     const container = document.getElementById("news-list");
-
+    if (!container) return;
+    
     try {
       const response = await fetch(SHEET_CSV_URL, { cache: "no-store" });
       if (!response.ok) {
