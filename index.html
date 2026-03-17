@@ -12,11 +12,95 @@
   <div class="page-bg" aria-hidden="true"></div>
 
 <header class="site-header">
-  <nav class="topnav topnav-bar" aria-label="Główne menu">
-    <a href="#szukam-wsparcia" data-page="szukam-wsparcia" class="navlink">Szukam wsparcia</a>
-    <a href="#hospicjum" data-page="hospicjum" class="navlink">Hospicjum</a>
-    <a href="#chce-wesprzec" data-page="chce-wesprzec" class="navlink">Chcę wesprzeć</a>
-    <a href="#wplaty" data-page="wplaty" class="navlink navlink-cta">Wesprzyj teraz</a>
+  <nav class="topnav topnav-bar topnav-dropdown" aria-label="Główne menu">
+    <ul class="topnav-menu">
+      <li class="topnav-item topnav-item-has-submenu">
+        <button
+          type="button"
+          class="navlink navbutton"
+          aria-expanded="false"
+          aria-haspopup="true"
+        >
+          Szukam wsparcia
+        </button>
+
+        <ul class="submenu" aria-label="Szukam wsparcia">
+          <li>
+            <a href="#o-nas" data-page="o-nas" class="navlink submenu-link">
+              jako Pacjent
+            </a>
+          </li>
+          <li>
+            <a href="#jak-pomagac" data-page="jak-pomagac" class="navlink submenu-link">
+              jako Członek Rodziny
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="topnav-item topnav-item-has-submenu topnav-item-center">
+        <button
+          type="button"
+          class="navlink navbutton"
+          aria-expanded="false"
+          aria-haspopup="true"
+        >
+          hospicjum
+        </button>
+
+        <ul class="submenu" aria-label="Hospicjum">
+          <li>
+            <a href="#o-patronie" data-page="o-patronie" class="navlink submenu-link">
+              O patronie
+            </a>
+          </li>
+          <li>
+            <a href="#o-nas" data-page="o-nas" class="navlink submenu-link">
+              O nas
+            </a>
+          </li>
+          <li>
+            <a href="#aktualnosci" data-page="aktualnosci" class="navlink submenu-link">
+              Aktualności
+            </a>
+          </li>
+          <li>
+            <a href="#kontakt" data-page="kontakt" class="navlink submenu-link">
+              Kontakt
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="topnav-item topnav-item-has-submenu">
+        <button
+          type="button"
+          class="navlink navbutton"
+          aria-expanded="false"
+          aria-haspopup="true"
+        >
+          Chcę wesprzeć
+        </button>
+
+        <ul class="submenu" aria-label="Chcę wesprzeć">
+          <li>
+            <a href="#o-nas" data-page="o-nas" class="navlink submenu-link">
+              jako Wolontariusz
+            </a>
+          </li>
+          <li>
+            <a href="#wplaty" data-page="wplaty" class="navlink submenu-link">
+              jako Darczyńca
+            </a>
+          </li>
+          <li>
+            <a href="#o-nas" data-page="o-nas" class="navlink submenu-link">
+              jako Specjalista
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
   </nav>
 </header>
 
