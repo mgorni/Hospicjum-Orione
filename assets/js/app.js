@@ -1,90 +1,73 @@
-(() => {
-  const contentEl = document.getElementById("content");
-  const navLinks = Array.from(document.querySelectorAll(".navlink"));
+// ======================
+// Routing / SPA loader
+// ======================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const content = document.getElementById("content");
 
   const routes = {
-    "home": "partials/home.html",
-    "o-nas": "partials/o-nas.html",
-    "aktualnosci": "partials/aktualnosci.html",
-    "jak-pomagac": "partials/jak-pomagac.html",
-    "o-patronie": "partials/o-patronie.html",
-    "kontakt": "partials/kontakt.html",
-    "wplaty": "partials/wplaty.html",
+    home: "/partials/home.html",
+    "o-nas": "/partials/o-nas.html",
+    aktualnosci: "/partials/aktualnosci.html",
+    "jak-pomagac": "/partials/jak-pomagac.html",
+    "o-patronie": "/partials/o-patronie.html",
+    kontakt: "/partials/kontakt.html",
+    wplaty: "/partials/wplaty.html",
   };
 
-  function setActive(pageKey) {
-    navLinks.forEach(a => {
-      a.classList.toggle("active", a.dataset.page === pageKey);
-    });
-  }
-
-  async function loadPage(pageKey, { pushHash = true } = {}) {
-    const path = routes[pageKey] || routes["home"];
-    setActive(pageKey);
-
-    // fade-out
-    contentEl.classList.add("fade-out");
-
-    // mała zwłoka żeby CSS zdążył zadziałać
-    await new Promise(r => setTimeout(r, 120));
+  async function loadPage(page) {
+    const url = routes[page] || routes.home;
 
     try {
-      const res = await fetch("/" + path, { cache: "no-store" });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      content.innerHTML = '<div class="loading">Ładowanie…</div>';
 
-      const html = await res.text();
-      contentEl.innerHTML = html;
+      const response = await fetch(url);
+      const html = await response.text();
 
-      if (document.getElementById("news-list") && typeof loadNews === "function") {
-        loadNews();
-      }
+      content.innerHTML = html;
 
-      // fade-in
-      contentEl.classList.remove("fade-out");
-      contentEl.classList.add("fade-in");
-      setTimeout(() => contentEl.classList.remove("fade-in"), 200);
-
-      if (pushHash) {
-        const hash = pageKey === "home" ? "home" : pageKey;
-        if (location.hash.replace("#", "") !== hash) {
-          history.pushState({ pageKey }, "", "#" + hash);
-        }
-      }
+      window.location.hash = page;
+      updateActiveLinks(page);
     } catch (e) {
-      contentEl.classList.remove("fade-out");
-      contentEl.innerHTML = `
-        <section class="card">
-          <h2>Nie udało się załadować treści</h2>
-          <p>Spróbuj odświeżyć stronę. (${String(e.message || e)})</p>
-        </section>
-      `;
+      content.innerHTML = "<p>Błąd ładowania strony.</p>";
+      console.error(e);
     }
   }
 
-  function pageFromHash() {
-    const key = (location.hash || "#home").replace("#", "");
-    return routes[key] ? key : "home";
+  function updateActiveLinks(activePage) {
+    document.querySelectorAll(".navlink").forEach((link) => {
+      link.classList.toggle(
+        "active",
+        link.dataset.page === activePage
+      );
+    });
   }
 
-  // klik w menu
-  navLinks.forEach(a => {
+  // obsługa kliknięć w linki (1 i 2 poziom)
+  document.querySelectorAll(".navlink").forEach((a) => {
     a.addEventListener("click", (ev) => {
       ev.preventDefault();
-      loadPage(a.dataset.page);
+      const page = a.dataset.page;
+      loadPage(page);
+
+      // zamykanie dropdownów
+      document.querySelectorAll(".topnav-item-has-submenu").forEach((item) => {
+        item.classList.remove("is-open");
+        const btn = item.querySelector(".navbutton");
+        if (btn) btn.setAttribute("aria-expanded", "false");
+      });
     });
   });
 
-  // obsługa back/forward + ręczna zmiana hash
-  window.addEventListener("popstate", () => loadPage(pageFromHash(), { pushHash: false }));
-  window.addEventListener("hashchange", () => loadPage(pageFromHash(), { pushHash: false }));
-
-  // rok w stopce
-  const year = document.getElementById("year");
-  if (year) year.textContent = new Date().getFullYear();
-
   // start
-  loadPage(pageFromHash(), { pushHash: false });
-})();
+  const initialPage = window.location.hash.replace("#", "") || "home";
+  loadPage(initialPage);
+});
+
+
+// ======================
+// Dropdown (mobile + accessibility)
+// ======================
 
 document.addEventListener("DOMContentLoaded", () => {
   const menuItems = document.querySelectorAll(".topnav-item-has-submenu");
@@ -99,12 +82,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const isOpen = item.classList.contains("is-open");
 
+      // zamknij wszystkie
       menuItems.forEach((otherItem) => {
         otherItem.classList.remove("is-open");
-        const otherButton = otherItem.querySelector(".navbutton");
-        if (otherButton) otherButton.setAttribute("aria-expanded", "false");
+        const otherBtn = otherItem.querySelector(".navbutton");
+        if (otherBtn) otherBtn.setAttribute("aria-expanded", "false");
       });
 
+      // otwórz kliknięty
       if (!isOpen) {
         item.classList.add("is-open");
         button.setAttribute("aria-expanded", "true");
@@ -112,22 +97,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // klik poza menu zamyka
   document.addEventListener("click", (event) => {
     if (!event.target.closest(".topnav-item-has-submenu")) {
       menuItems.forEach((item) => {
         item.classList.remove("is-open");
-        const button = item.querySelector(".navbutton");
-        if (button) button.setAttribute("aria-expanded", "false");
+        const btn = item.querySelector(".navbutton");
+        if (btn) btn.setAttribute("aria-expanded", "false");
       });
     }
   });
 
+  // ESC zamyka
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       menuItems.forEach((item) => {
         item.classList.remove("is-open");
-        const button = item.querySelector(".navbutton");
-        if (button) button.setAttribute("aria-expanded", "false");
+        const btn = item.querySelector(".navbutton");
+        if (btn) btn.setAttribute("aria-expanded", "false");
       });
     }
   });
